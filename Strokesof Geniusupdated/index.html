@@ -207,10 +207,10 @@ $(() => {
                 }, function (results, status) {
                     response($.map(results, function (item) {
                         return {
-                         /*label: item.formatted_address,
+                         label: item.formatted_address,
                             value: item.formatted_address,
                             lat: item.geometry.location.lat(),
-                            lon: item.geometry.location.lng()*/
+                            lon: item.geometry.location.lng()
                         };
                     }));
                 });
