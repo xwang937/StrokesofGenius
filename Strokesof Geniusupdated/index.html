@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Strokes of Genius</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="svg/logo.png" width="560" height="54" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Map
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="education.html" >Education</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html" >Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+      
+       
+      
+      
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <h3 class="my-4">
+            <small>An interactive map to find your favorite galleries in the States.</small>
+          </h3>
+
+            
+<div class="mapouter">
+    <div id="gmap_canvas">
+        <!-- <iframe width="750" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=gallery&t=&z=5&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        <a href="https://www.embedgooglemap.net"></a> -->
+    </div><style>.mapouter{text-align:right;height:500px;width:750px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:750px;}</style>
+            
+
+            
+</div>
+    
+      
+        
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-4">
+
+          <!-- Proper user inputs-->  
+          <div class="card my-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+              <div class="input-group">
+                <input type="text" class="form-control" id="search_location" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary get_map" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+            <!-- Dynamic interactivity-->  
+            
+            
+             <!-- Sidebar-search suggestions -->
+         <div class="card my-4">
+            <h5 class="card-header">Most popular suggestions</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a >Callanwolde Fine Arts</a>
+                    </li>
+                    <li>
+                      <a>ZuCot Gallery</a>
+                    </li>
+                    <li>
+                      <a>High Museum of Art</a>
+                    </li>
+                  </ul>
+                </div>
+                  
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a >Kai Lin Art</a>
+                    </li>
+                    <li>
+                      <a >MoDa</a>
+                    </li>
+                    <li>
+                      <a>MOCA GA</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+  
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+  </body>
+
+</html>
+
+
+<!-- API-->  
+
+<script>
+function initMap() {}
+var map;
+
+$(() => {
+  initMap = function() {
+    var initialLat = 36.169648;
+    var initialLong = -115.141000;
+
+    var latlng = new google.maps.LatLng(initialLat, initialLong);
+    console.log(latlng)
+    var options = {
+        zoom: 16,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('gmap_canvas'), options);
+    console.log(map)
+    geocoder = new google.maps.Geocoder();
+
+    marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        position: latlng
+    });
+
+    google.maps.event.addListener(marker, "dragend", function () {
+        var point = marker.getPosition();
+        map.panTo(point);
+        geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              console.log("what")
+                map.setCenter(results[0].geometry.location);
+                marker.setPosition(results[0].geometry.location);
+                $('.search_addr').val(results[0].formatted_address);
+                $('.search_latitude').val(marker.getPosition().lat());
+                $('.search_longitude').val(marker.getPosition().lng());
+            }
+        });
+    });
+  }
+  var PostCodeid = '#search_location';
+    $(function () {
+        $(PostCodeid).autocomplete({
+            source: function (request, response) {
+                geocoder.geocode({
+                    'address': request.term
+                }, function (results, status) {
+                    response($.map(results, function (item) {
+                        return {
+                         label: item.formatted_address,
+                            value: item.formatted_address,
+                            lat: item.geometry.location.lat(),
+                            lon: item.geometry.location.lng()
+                        };
+                    }));
+                });
+            },
+            
+            select: function (event, ui) {
+                $('.search_addr').val(ui.item.value);
+                $('.search_latitude').val(ui.item.lat);
+                $('.search_longitude').val(ui.item.lon);
+                var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
+                marker.setPosition(latlng);
+                initMap();
+            }
+            
+            
+        });
+    }
+      
+      
+     
+     );
+    
+    /*
+     * Point location on google map
+     */
+    $('.get_map').click(function (e) {
+        var address = $(PostCodeid).val();
+        geocoder.geocode({'address': address}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                marker.setPosition(results[0].geometry.location);
+                $('.search_addr').val(results[0].formatted_address);
+                $('.search_latitude').val(marker.getPosition().lat());
+                $('.search_longitude').val(marker.getPosition().lng());
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+        e.preventDefault();
+    });
+
+    //Add listener to marker for reverse geocoding
+    // google.maps.event.addListener(marker, 'drag', function () {
+    //     geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+    //         if (status == google.maps.GeocoderStatus.OK) {
+    //             if (results[0]) {
+    //                 $('.search_addr').val(results[0].formatted_address);
+    //                 $('.search_latitude').val(marker.getPosition().lat());
+    //                 $('.search_longitude').val(marker.getPosition().lng());
+    //             }
+    //         }
+    //     });
+    // });
+})
+</script>
+<script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ42jzKSQ1C8eT2rIHKzwzMdjvpnnbW7U&signed_in=true&callback=initMap">
+    </script>
+
+<style>
+#gmap_canvas{
+    width: 100%;
+    height: 400px;
+}
+</style>
