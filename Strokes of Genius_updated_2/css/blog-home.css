@@ -1,0 +1,47 @@
+/*!
+ * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
+ */
+
+header{
+    background-color: #fffff0;
+}
+
+#containter{
+    width: 100%;
+    top: 100px;
+    position: fixed;
+}
+
+body {
+    background-color: #fffff0;
+    font: 12px Verdana, Arial, sans-serif; /* Embeded fonts with typographical design considerations*/
+    h1, h2, h3 {
+        font-size: 10px;
+    }
+    
+  padding-top: 100px;
+}
+
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
