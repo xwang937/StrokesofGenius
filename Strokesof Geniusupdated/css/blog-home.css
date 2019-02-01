@@ -1,9 +1,3 @@
-/*!
- * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
- * Copyright 2013-2017 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
- */
-
 header{
     background-color: #fffff0;
 }
@@ -16,9 +10,9 @@ header{
 
 body {
     background-color: #fffff0;
-    font: 12px Verdana, Arial, sans-serif; /* Embeded fonts with typographical design considerations*/
+    font: 14px Verdana, Arial, sans-serif; /* Embeded fonts with typographical design considerations*/
     h1, h2, h3 {
-        font-size: 10px;
+        font-size: 12px;
     }
     
   padding-top: 100px;
